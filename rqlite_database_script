@@ -1,0 +1,4 @@
+#create table
+curl -XPOST 'localhost:4001/db/execute?pretty&timings' -H "Content-Type: application/json" -d '[
+    "CREATE TABLE users (id INTEGER NOT NULL PRIMARY KEY, username TEXT, password TEXT, name TEXT, age INTEGER)"
+]'
