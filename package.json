@@ -1,5 +1,4 @@
 {
-  "start": "nodemon app.js",
   "name": "724app",
   "version": "1.0.0",
   "description": "",
@@ -9,10 +8,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "hbs": "^4.2.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "request": "^2.88.2"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
