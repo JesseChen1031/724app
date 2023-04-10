@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const request = require('request');
+const axios = require('axios');
 const app = express();
 
 dotenv.config({ path: './.env'})
@@ -34,16 +34,53 @@ app.use(express.urlencoded({extended: 'false'}))
 app.use(express.json())
 
 
-const rqliteAddr = "localhost:4001/db/execute?pretty&timings"
+const rqliteAddr = "http://localhost:4001/db/execute?pretty&timings"
 
 app.post("/auth/register", (req, res) => {    
     const { username, name, age, password } = req.body
 
-    // db.query() code goes here
+    const queryData = {
+        query: "SELECT * FROM users Where username = ?",
+        parameters: [username]
+    };
+
+    axios.post(rqliteAddr, queryData)
+    .then(response => {
+        console.log('Response:', response.data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    const insertData = {
+        query: "INSERT INTO users (username, name, age, password) VALUES (?, ?, ?, ?)",
+        parameters: [username, name, age, password]
+    };
+
+    axios.post(rqliteAddr, insertData)
+    .then(response => {
+        console.log('Response:', response.data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 })
 
 app.post("/auth/login", (req, res) => {  
     const { username, password} = req.body
+
+    const queryData = {
+        query: "SELECT * FROM users Where username = ?",
+        parameters: [username]
+    };
+
+    axios.post(rqliteAddr, queryData)
+    .then(response => {
+        console.log('Response:', response.data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
     // db.query() code goes here
 })
